@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
+        PhotonView photonView = GetComponent<PhotonView>();
         Players = new PlayerController[PhotonNetwork.PlayerList.Length];
         photonView.RPC("ImInGame", RpcTarget.All);
     }

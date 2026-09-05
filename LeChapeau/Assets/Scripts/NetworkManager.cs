@@ -1,8 +1,11 @@
 using UnityEngine;
+using TMPro;
 using Photon.Pun;
 using JetBrains.Annotations;
+using UnityEngine.UI;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+    public Menu menu;
     public static NetworkManager instance;
 
     private void Awake()
@@ -20,6 +23,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        menu = FindAnyObjectByType<Menu>();
+        if (menu)
+        {
+            Debug.Log("Menu found");
+        }
+        else
+        {
+            Debug.Log("Menu not found");
+        }
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -36,14 +48,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel(sceneName);
     }
-   
-    /*public override void OnConnectedToMaster()
-    {
-        CreateRoom("testroom");
-    }*/
 
     public override void OnCreatedRoom()
     {
         Debug.Log("Created room: " + PhotonNetwork.CurrentRoom.Name);
     }
+    [PunRPC]
+    public void UpdateLobbyUI()
+    {
+        menu.UpdateLobbyUI();
+    }
 }
+

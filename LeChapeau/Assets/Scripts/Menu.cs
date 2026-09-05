@@ -47,7 +47,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         SetScreen(lobbyScreen);
-        photonView.RPC("UpdateLobbyUI",RpcTarget.All);
+        NetworkManager.instance.photonView.RPC("UpdateLobbyUI", RpcTarget.All);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -61,9 +61,9 @@ public class Menu : MonoBehaviourPunCallbacks
     }
     public void OnStartGameButton()
     {
-        PhotonNetwork.GetPhotonView(0).RPC("ChangeScene", RpcTarget.All, "Game");
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
     }
-    [PunRPC]
+    
     public void UpdateLobbyUI()
     {
         playerListText.text = "";
