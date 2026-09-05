@@ -52,14 +52,17 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        UpdateLobbyUI();
+    }
+    public void OnLeaveLobbyButton()
+    {
         PhotonNetwork.LeaveRoom();
         SetScreen(mainScreen);
     }
     public void OnStartGameButton()
     {
-        NetworkManager.instance.photonView.r("ChangeScene", RpcTarget.All, "Game");
+        PhotonNetwork.GetPhotonView(0).RPC("ChangeScene", RpcTarget.All, "Game");
     }
-
     [PunRPC]
     public void UpdateLobbyUI()
     {
@@ -71,8 +74,11 @@ public class Menu : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             startGameButton.interactable = true;
-        }else{
-            startGameButton.interactable=false;
+        }
+        else
+        {
+            startGameButton.interactable = false;
         }
     }
+
 }

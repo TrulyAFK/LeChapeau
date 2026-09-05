@@ -38,6 +38,8 @@ MonoBehaviour:
   - DestroyRpc
   - ChangeScene
   - UpdateLobbyUI
+  - OnJoinedRoom
+  - OnStartGameButton
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0
