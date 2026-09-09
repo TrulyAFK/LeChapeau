@@ -40,6 +40,10 @@ MonoBehaviour:
   - UpdateLobbyUI
   - OnJoinedRoom
   - OnStartGameButton
+  - IminGame
+  - Initialize
+  - GiveHat
+  - WinGame
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

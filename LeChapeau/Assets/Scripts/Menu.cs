@@ -63,7 +63,7 @@ public class Menu : MonoBehaviourPunCallbacks
     {
         NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
     }
-    
+    //rpc
     public void UpdateLobbyUI()
     {
         playerListText.text = "";

@@ -1,11 +1,11 @@
 using UnityEngine;
 using TMPro;
 using Photon.Pun;
+using Photon.Realtime;
 using JetBrains.Annotations;
 using UnityEngine.UI;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public Menu menu;
     public static NetworkManager instance;
 
     private void Awake()
@@ -23,15 +23,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        menu = FindAnyObjectByType<Menu>();
-        if (menu)
-        {
-            Debug.Log("Menu found");
-        }
-        else
-        {
-            Debug.Log("Menu not found");
-        }
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -48,15 +39,38 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel(sceneName);
     }
-
     public override void OnCreatedRoom()
     {
         Debug.Log("Created room: " + PhotonNetwork.CurrentRoom.Name);
     }
+
+
+    //other script rpcs
     [PunRPC]
     public void UpdateLobbyUI()
     {
+        Menu menu = FindAnyObjectByType<Menu>();
         menu.UpdateLobbyUI();
+    }
+
+    [PunRPC]
+    public void IminGame(){
+        GameManager.instance.ImInGame();
+    }
+    /*
+    [PunRPC]
+    public void Initialize(PlayerController player){
+        player.Initialize(PhotonNetwork.LocalPlayer);
+    }
+    GameManager game = FindAnyObjectByType<GameManager>();
+    */
+    [PunRPC]
+    public void GiveHat(int playerId, bool initialGive){
+        GameManager.instance.GiveHat(playerId,initialGive);
+    }
+    [PunRPC]
+    public void WinGame(int playerId){
+        GameManager.instance.WinGame(playerId);
     }
 }
 
